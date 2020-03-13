@@ -1,7 +1,7 @@
 import sqlite3
 import pandas as pd
 
-conn = sqlite3.connect('.\data\wine_data.sqlite')
+conn = sqlite3.connect('./data/wine_data.sqlite')
 c = conn.cursor()
 
 df = pd.read_sql("select country, variety, price, rating, color from wine_data" , conn)

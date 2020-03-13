@@ -7,6 +7,8 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output, State
 import urllib
+import flask
+from flask import Flask
 
 
 from data import functions, transforms
@@ -27,9 +29,10 @@ df = transforms.df
 
 PAGE_SIZE = 50
 
-app = dash.Dash(__name__, meta_tags=[{ "content": "width=device-width"}], external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = Flask(__name__)
 
-server = app.server
+app = dash.Dash(__name__,server = server, meta_tags=[{ "content": "width=device-width"}], external_stylesheets=[dbc.themes.BOOTSTRAP])
+
 
 app.config.suppress_callback_exceptions = True
 
@@ -215,4 +218,4 @@ def update_table2(page_current, page_size, sort_by, filter):
     return csv_string
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, host ='0.0.0.0')
